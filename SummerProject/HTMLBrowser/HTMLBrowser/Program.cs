@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace HTMLBrowser
 {
@@ -10,45 +11,59 @@ namespace HTMLBrowser
     {
         static void Main(string[] args)
         {
-            string test = "<p> < /p>";
             var bracketError = 0;
 
-            test = test.Replace("</ ","</");
-            test = test.Replace("< /", "</");
+            string[] test = File.ReadAllLines(@"D:\Project\html-Browser\SummerProject\HTMLBrowser\HTMLBrowser\a.html"); // html 문서 위치
+
+            for (int i = 0; i < test.Length; i++)
+            {
+                test[i] = test[i].Replace("</ ", "</");
+                test[i] = test[i].Replace("< /", "</");
+                test[i] = test[i].Replace("< / ", "</");
+            }
 
             Stack<string> bracket = new Stack<string>();
 
-            for (int i =0; i<test.Length;i++)
+            for (int i = 0; i < test.Length; i++)
             {
-                if(test[i].ToString() == "<" )
+                for (int j = 0; j < test[i].Length; j++)
                 {
-                    bracket.Push(test[i].ToString());
-                }
-
-                if (test[i].ToString() == ">")
-                {
-                 
-                    try
+                    if (test[i][j].ToString() == "<")
                     {
-                        bracket.Pop();
-                    }
-                    catch (Exception e)
-                    {
-                        bracketError++;
+                        bracket.Push(test[i][j].ToString());
                     }
 
+                    if (test[i][j].ToString() == ">")
+                    {
+
+                        try
+                        {
+                            bracket.Pop(); //stack이 비어 있으면 에러 발생
+                        }
+                        catch (Exception e)
+                        {
+                            bracketError++;
+                        }
+
+                    }
                 }
 
             }
 
 
+            if (bracket.Count() != 0)
+                Console.WriteLine("닫히지 않은 괄호가 " + bracket.Count() + "개 존재합니다");
 
-            if (bracketError != 0)
+
+            else if (bracketError != 0)
                 Console.WriteLine(bracketError + "개의 괄호가 짝이 맞지 않습니다");
             else
-                Console.WriteLine("모든 괄호의 짝이 맞습니다");
+                Console.WriteLine("모든 괄호의 짝이 맞습니다\n\n");
 
-            Console.WriteLine(test);
+            Console.WriteLine();
+            for (int i = 0; i < test.Length; i++)
+                Console.WriteLine(test[i]);
+            Console.WriteLine();
 
         }
     }

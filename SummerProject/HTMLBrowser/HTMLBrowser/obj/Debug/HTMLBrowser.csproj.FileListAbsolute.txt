@@ -5,3 +5,10 @@ D:\Project\SummerProject\HTMLBrowser\HTMLBrowser\bin\Debug\HTMLBrowser.exe
 D:\Project\SummerProject\HTMLBrowser\HTMLBrowser\bin\Debug\HTMLBrowser.pdb
 D:\Project\SummerProject\HTMLBrowser\HTMLBrowser\obj\Debug\HTMLBrowser.exe
 D:\Project\SummerProject\HTMLBrowser\HTMLBrowser\obj\Debug\HTMLBrowser.pdb
+D:\Project\html-Browser\SummerProject\HTMLBrowser\HTMLBrowser\bin\Debug\HTMLBrowser.exe.config
+D:\Project\html-Browser\SummerProject\HTMLBrowser\HTMLBrowser\bin\Debug\HTMLBrowser.exe
+D:\Project\html-Browser\SummerProject\HTMLBrowser\HTMLBrowser\bin\Debug\HTMLBrowser.pdb
+D:\Project\html-Browser\SummerProject\HTMLBrowser\HTMLBrowser\obj\Debug\HTMLBrowser.csprojAssemblyReference.cache
+D:\Project\html-Browser\SummerProject\HTMLBrowser\HTMLBrowser\obj\Debug\HTMLBrowser.csproj.CoreCompileInputs.cache
+D:\Project\html-Browser\SummerProject\HTMLBrowser\HTMLBrowser\obj\Debug\HTMLBrowser.exe
+D:\Project\html-Browser\SummerProject\HTMLBrowser\HTMLBrowser\obj\Debug\HTMLBrowser.pdb
