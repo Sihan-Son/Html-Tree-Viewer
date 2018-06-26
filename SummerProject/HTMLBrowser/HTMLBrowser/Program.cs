@@ -11,6 +11,8 @@ namespace HTMLBrowser
 {
     class Program
     {
+
+
         static void Main(string[] args)
         {
             //에러 개수 count
@@ -24,8 +26,13 @@ namespace HTMLBrowser
 
 
             Stack<string> bracket = new Stack<string>(); // <> 짝 확인
+            Stack<string> tagName = new Stack<string>(); // tag 짝 확인
+
             ArrayList lines = new ArrayList(); // error 발생 줄 > 가 많을 때
             ArrayList linesNo = new ArrayList(); // stack에 들어간 줄수 정방향으로 바꾸기용
+            ArrayList errorTag = new ArrayList(); // 짝이 맞지 않는 태그 목록
+
+
             //중복 줄 1번만 출력
             lines.Add(0);
             linesNo.Add(0);
@@ -46,7 +53,11 @@ namespace HTMLBrowser
             //<로 시작하는 문장들은 모두 태그라 태그 비교를 위해
             Regex regex = new Regex("<");
             string[] tag = regex.Split(txt);
-            
+
+            //for(int i = 0; i<tag.Length;i++)
+            //{
+            //    Console.WriteLine("{0} {1}", i, tag[i]);
+            //}
 
             //tag pattern
             //V
@@ -180,6 +191,9 @@ namespace HTMLBrowser
 
 
 
+            string closeTag = ""; //
+            string tempTagName;
+
             //태그를 스택에 넣고 pop된 태그와 /tag의 일치 비교
             foreach (string tags in tag)
             {
@@ -197,15 +211,27 @@ namespace HTMLBrowser
                     //Console.WriteLine(temp[0]);
                     if (tags[0].ToString() == "/")
                     {
-                        string a = "";
+                        Console.WriteLine("in");
                         for (int i = 1; i < tags.Length; i++)
                         {
-                            a += tags[i];
+                            closeTag += tags[i];
                             if (tags[i].ToString() == " ")
                                 break;
                         }
-                        Console.WriteLine(a);
+                        tempTagName = tagName.Pop();
+                        Console.WriteLine(tempTagName);
+                        if (closeTag != tempTagName)
+                        {
+                            errorTag.Add(tempTagName);
+                        }
                     }
+
+                    else
+                    {
+                        Console.WriteLine(temp[0]);
+                        tagName.Push(temp[0]);
+                    }
+
                 }
 
                 //B로 시작 태그
@@ -219,17 +245,28 @@ namespace HTMLBrowser
                     //Console.WriteLine(temp[0]);
                     if (tags[0].ToString() == "/")
                     {
-                        string a = "";
+                        Console.WriteLine("in");
                         for (int i = 1; i < tags.Length; i++)
                         {
-                            a += tags[i];
+                            closeTag += tags[i];
                             if (tags[i].ToString() == " ")
                                 break;
                         }
-                        Console.WriteLine(a);
+                        tempTagName = tagName.Pop();
+                        Console.WriteLine(tempTagName);
+                        if (closeTag != tempTagName)
+                        {
+                            errorTag.Add(tempTagName);
+                        }
+                    }
+
+                    else
+                    {
+                        Console.WriteLine(temp[0]);
+                        tagName.Push(temp[0]);
                     }
                 }
-                
+
                 //C로 시작 태그
                 else if (System.Text.RegularExpressions.Regex.IsMatch(tags, pCanvas) ||
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pCaption) ||
@@ -244,14 +281,25 @@ namespace HTMLBrowser
                     //Console.WriteLine(temp[0]);
                     if (tags[0].ToString() == "/")
                     {
-                        string a = "";
+                        Console.WriteLine("in");
                         for (int i = 1; i < tags.Length; i++)
                         {
-                            a += tags[i];
+                            closeTag += tags[i];
                             if (tags[i].ToString() == " ")
                                 break;
                         }
-                        Console.WriteLine(a);
+                        tempTagName = tagName.Pop();
+                        Console.WriteLine(tempTagName);
+                        if (closeTag != tempTagName)
+                        {
+                            errorTag.Add(tempTagName);
+                        }
+                    }
+
+                    else
+                    {
+                        Console.WriteLine(temp[0]);
+                        tagName.Push(temp[0]);
                     }
                 }
 
@@ -266,42 +314,64 @@ namespace HTMLBrowser
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pDiv) ||
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pDl) ||
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pDt))
+                {
+                    string[] temp = tags.Split(' ');
+                    //Console.WriteLine(temp[0]);
+                    if (tags[0].ToString() == "/")
                     {
-                        string[] temp = tags.Split(' ');
-                        //Console.WriteLine(temp[0]);
-                        if (tags[0].ToString() == "/")
+                        Console.WriteLine("in");
+                        for (int i = 1; i < tags.Length; i++)
                         {
-                            string a = "";
-                            for (int i = 1; i < tags.Length; i++)
-                            {
-                                a += tags[i];
-                                if (tags[i].ToString() == " ")
-                                    break;
-                            }
-                            Console.WriteLine(a);
+                            closeTag += tags[i];
+                            if (tags[i].ToString() == " ")
+                                break;
+                        }
+                        tempTagName = tagName.Pop();
+                        Console.WriteLine(tempTagName);
+                        if (closeTag != tempTagName)
+                        {
+                            errorTag.Add(tempTagName);
                         }
                     }
+
+                    else
+                    {
+                        Console.WriteLine(temp[0]);
+                        tagName.Push(temp[0]);
+                    }
+                }
 
                 //E & K로 시작 태그
                 else if (System.Text.RegularExpressions.Regex.IsMatch(tags, pEm) ||
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pEmbed) ||
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pKbd))
 
+                {
+                    string[] temp = tags.Split(' ');
+                    //Console.WriteLine(temp[0]);
+                    if (tags[0].ToString() == "/")
                     {
-                        string[] temp = tags.Split(' ');
-                        //Console.WriteLine(temp[0]);
-                        if (tags[0].ToString() == "/")
+                        Console.WriteLine("in");
+                        for (int i = 1; i < tags.Length; i++)
                         {
-                            string a = "";
-                            for (int i = 1; i < tags.Length; i++)
-                            {
-                                a += tags[i];
-                                if (tags[i].ToString() == " ")
-                                    break;
-                            }
-                            Console.WriteLine(a);
+                            closeTag += tags[i];
+                            if (tags[i].ToString() == " ")
+                                break;
+                        }
+                        tempTagName = tagName.Pop();
+                        Console.WriteLine(tempTagName);
+                        if (closeTag != tempTagName)
+                        {
+                            errorTag.Add(tempTagName);
                         }
                     }
+
+                    else
+                    {
+                        Console.WriteLine(temp[0]);
+                        tagName.Push(temp[0]);
+                    }
+                }
 
                 //F & L 로 시작 태그
                 else if (System.Text.RegularExpressions.Regex.IsMatch(tags, pFieldset) ||
@@ -315,22 +385,33 @@ namespace HTMLBrowser
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pLabel) ||
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pLegend) ||
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pLi))
+                {
+                    string[] temp = tags.Split(' ');
+                    //Console.WriteLine(temp[0]);
+                    if (tags[0].ToString() == "/")
                     {
-                        string[] temp = tags.Split(' ');
-                        //Console.WriteLine(temp[0]);
-                        if (tags[0].ToString() == "/")
+                        Console.WriteLine("in");
+                        for (int i = 1; i < tags.Length; i++)
                         {
-                            string a = "";
-                            for (int i = 1; i < tags.Length; i++)
-                            {
-                                a += tags[i];
-                                if (tags[i].ToString() == " ")
-                                    break;
-                            }
-                            Console.WriteLine(a);
+                            closeTag += tags[i];
+                            if (tags[i].ToString() == " ")
+                                break;
+                        }
+                        tempTagName = tagName.Pop();
+                        Console.WriteLine(tempTagName);
+                        if (closeTag != tempTagName)
+                        {
+                            errorTag.Add(tempTagName);
                         }
                     }
-                
+
+                    else
+                    {
+                        Console.WriteLine(temp[0]);
+                        tagName.Push(temp[0]);
+                    }
+                }
+
                 //H로 시작 태그
                 else if (System.Text.RegularExpressions.Regex.IsMatch(tags, pHtml) ||
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pHgroup) ||
@@ -347,14 +428,25 @@ namespace HTMLBrowser
                     //Console.WriteLine(temp[0]);
                     if (tags[0].ToString() == "/")
                     {
-                        string a = "";
+                        Console.WriteLine("in");
                         for (int i = 1; i < tags.Length; i++)
                         {
-                            a += tags[i];
+                            closeTag += tags[i];
                             if (tags[i].ToString() == " ")
                                 break;
                         }
-                        Console.WriteLine(a);
+                        tempTagName = tagName.Pop();
+                        Console.WriteLine(tempTagName);
+                        if (closeTag != tempTagName)
+                        {
+                            errorTag.Add(tempTagName);
+                        }
+                    }
+
+                    else
+                    {
+                        Console.WriteLine(temp[0]);
+                        tagName.Push(temp[0]);
                     }
                 }
 
@@ -373,14 +465,25 @@ namespace HTMLBrowser
                     //Console.WriteLine(temp[0]);
                     if (tags[0].ToString() == "/")
                     {
-                        string a = "";
+                        Console.WriteLine("in");
                         for (int i = 1; i < tags.Length; i++)
                         {
-                            a += tags[i];
+                            closeTag += tags[i];
                             if (tags[i].ToString() == " ")
                                 break;
                         }
-                        Console.WriteLine(a);
+                        tempTagName = tagName.Pop();
+                        Console.WriteLine(tempTagName);
+                        if (closeTag != tempTagName)
+                        {
+                            errorTag.Add(tempTagName);
+                        }
+                    }
+
+                    else
+                    {
+                        Console.WriteLine(temp[0]);
+                        tagName.Push(temp[0]);
                     }
                 }
 
@@ -393,14 +496,25 @@ namespace HTMLBrowser
                     //Console.WriteLine(temp[0]);
                     if (tags[0].ToString() == "/")
                     {
-                        string a = "";
+                        Console.WriteLine("in");
                         for (int i = 1; i < tags.Length; i++)
                         {
-                            a += tags[i];
+                            closeTag += tags[i];
                             if (tags[i].ToString() == " ")
                                 break;
                         }
-                        Console.WriteLine(a);
+                        tempTagName = tagName.Pop();
+                        Console.WriteLine(tempTagName);
+                        if (closeTag != tempTagName)
+                        {
+                            errorTag.Add(tempTagName);
+                        }
+                    }
+
+                    else
+                    {
+                        Console.WriteLine(temp[0]);
+                        tagName.Push(temp[0]);
                     }
                 }
 
@@ -415,14 +529,25 @@ namespace HTMLBrowser
                     //Console.WriteLine(temp[0]);
                     if (tags[0].ToString() == "/")
                     {
-                        string a = "";
+                        Console.WriteLine("in");
                         for (int i = 1; i < tags.Length; i++)
                         {
-                            a += tags[i];
+                            closeTag += tags[i];
                             if (tags[i].ToString() == " ")
                                 break;
                         }
-                        Console.WriteLine(a);
+                        tempTagName = tagName.Pop();
+                        Console.WriteLine(tempTagName);
+                        if (closeTag != tempTagName)
+                        {
+                            errorTag.Add(tempTagName);
+                        }
+                    }
+
+                    else
+                    {
+                        Console.WriteLine(temp[0]);
+                        tagName.Push(temp[0]);
                     }
                 }
 
@@ -437,14 +562,25 @@ namespace HTMLBrowser
                     //Console.WriteLine(temp[0]);
                     if (tags[0].ToString() == "/")
                     {
-                        string a = "";
+                        Console.WriteLine("in");
                         for (int i = 1; i < tags.Length; i++)
                         {
-                            a += tags[i];
+                            closeTag += tags[i];
                             if (tags[i].ToString() == " ")
                                 break;
                         }
-                        Console.WriteLine(a);
+                        tempTagName = tagName.Pop();
+                        Console.WriteLine(tempTagName);
+                        if (closeTag != tempTagName)
+                        {
+                            errorTag.Add(tempTagName);
+                        }
+                    }
+
+                    else
+                    {
+                        Console.WriteLine(temp[0]);
+                        tagName.Push(temp[0]);
                     }
                 }
 
@@ -461,14 +597,25 @@ namespace HTMLBrowser
                     //Console.WriteLine(temp[0]);
                     if (tags[0].ToString() == "/")
                     {
-                        string a = "";
+                        Console.WriteLine("in");
                         for (int i = 1; i < tags.Length; i++)
                         {
-                            a += tags[i];
+                            closeTag += tags[i];
                             if (tags[i].ToString() == " ")
                                 break;
                         }
-                        Console.WriteLine(a);
+                        tempTagName = tagName.Pop();
+                        Console.WriteLine(tempTagName);
+                        if (closeTag != tempTagName)
+                        {
+                            errorTag.Add(tempTagName);
+                        }
+                    }
+
+                    else
+                    {
+                        Console.WriteLine(temp[0]);
+                        tagName.Push(temp[0]);
                     }
                 }
 
@@ -492,14 +639,25 @@ namespace HTMLBrowser
                     //Console.WriteLine(temp[0]);
                     if (tags[0].ToString() == "/")
                     {
-                        string a = "";
+                        Console.WriteLine("in");
                         for (int i = 1; i < tags.Length; i++)
                         {
-                            a += tags[i];
+                            closeTag += tags[i];
                             if (tags[i].ToString() == " ")
                                 break;
                         }
-                        Console.WriteLine(a);
+                        tempTagName = tagName.Pop();
+                        Console.WriteLine(tempTagName);
+                        if (closeTag != tempTagName)
+                        {
+                            errorTag.Add(tempTagName);
+                        }
+                    }
+
+                    else
+                    {
+                        Console.WriteLine(temp[0]);
+                        tagName.Push(temp[0]);
                     }
                 }
 
@@ -520,16 +678,28 @@ namespace HTMLBrowser
                     //Console.WriteLine(temp[0]);
                     if (tags[0].ToString() == "/")
                     {
-                        string a = "";
+                        Console.WriteLine("in");
                         for (int i = 1; i < tags.Length; i++)
                         {
-                            a += tags[i];
+                            closeTag += tags[i];
                             if (tags[i].ToString() == " ")
                                 break;
                         }
-                        Console.WriteLine(a);
+                        tempTagName = tagName.Pop();
+                        Console.WriteLine(tempTagName);
+                        if (closeTag != tempTagName)
+                        {
+                            errorTag.Add(tempTagName);
+                        }
+                    }
+
+                    else
+                    {
+                        Console.WriteLine(temp[0]);
+                        tagName.Push(temp[0]);
                     }
                 }
+
             }
 
 
@@ -543,14 +713,30 @@ namespace HTMLBrowser
                     if (test[i][j].ToString() == "<")
                     {
                         bracket.Push(test[i][j].ToString());
-                        Console.WriteLine(bracket.Count);
 
-                        if (errorFlagCount < bracket.Count)
-                            errorFlag = true;
+                        /*
                         if (bracket.Count >= 2)
                         {
-                            Console.WriteLine(bracket.Count);
+                            errorFlagCount = bracket.Count;
+
+                            if (errorFlagCount <= bracket.Count)
+                            {
+                                errorFlag = false;
+                                Console.WriteLine(i + " false");
+
+                            }
+
+                            else
+                            {
+                                errorFlag = true;
+                                Console.WriteLine("true");
+                            }
+                        }
+                        */
+                        if (errorFlag)
+                        {
                             linesNo.Add(i);
+                            Console.WriteLine(bracket.Count);
                         }
                     }
 
@@ -561,7 +747,7 @@ namespace HTMLBrowser
                         {
                             bracket.Pop(); //stack이 비어 있으면 에러 발생
                         }
-                        catch (Exception e)
+                        catch (Exception)
                         {
                             bracketError++;
                             lines.Add(i);
@@ -599,11 +785,30 @@ namespace HTMLBrowser
             else
                 Console.WriteLine("모든 괄호의 짝이 맞습니다\n\n");
 
-            Console.WriteLine();
-            //for (int i = 0; i < test.Length; i++)
-               // Console.WriteLine(test[i]);
-            Console.WriteLine();
+            if (errorTag.Count != 0)
+            {
+                Console.WriteLine("짝이 맞지 않는 태그가 발생");
 
+                for (int i = 0; i < errorTag.Count; i++)
+                    Console.WriteLine("{0} {1}", i + 1, errorTag[i]);
+            }
+
+            if (tagName.Count != 0)
+            {
+                Console.WriteLine("짝이 맞지 않는 태그가 발생");
+
+                for (int i = 0; i < tagName.Count; i++)
+                    Console.WriteLine("{0} {1}", i + 1, tagName.Pop());
+            }
+
+            Console.WriteLine(errorTag.Count);
+            /*
+            for (int i = 0; i < tag.Length; i++)
+                Console.WriteLine(tag[i]);
+            Console.WriteLine();
+            Console.WriteLine(); Console.WriteLine();
+            Console.WriteLine(txt);
+            */
         }
     }
 }
