@@ -12,3 +12,7 @@ D:\Project\html-Browser\SummerProject\HTMLBrowser\HTMLBrowser\obj\Debug\HTMLBrow
 D:\Project\html-Browser\SummerProject\HTMLBrowser\HTMLBrowser\obj\Debug\HTMLBrowser.csproj.CoreCompileInputs.cache
 D:\Project\html-Browser\SummerProject\HTMLBrowser\HTMLBrowser\obj\Debug\HTMLBrowser.exe
 D:\Project\html-Browser\SummerProject\HTMLBrowser\HTMLBrowser\obj\Debug\HTMLBrowser.pdb
+D:\Project\html-Browser\SummerProject\HTMLBrowser\HTMLBrowser\bin\Debug\HtmlAgilityPack.dll
+D:\Project\html-Browser\SummerProject\HTMLBrowser\HTMLBrowser\bin\Debug\HtmlAgilityPack.pdb
+D:\Project\html-Browser\SummerProject\HTMLBrowser\HTMLBrowser\bin\Debug\HtmlAgilityPack.xml
+D:\Project\html-Browser\SummerProject\HTMLBrowser\HTMLBrowser\obj\Debug\HTMLBrowser.csproj.CopyComplete

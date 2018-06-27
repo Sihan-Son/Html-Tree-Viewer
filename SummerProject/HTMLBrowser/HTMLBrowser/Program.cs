@@ -11,6 +11,46 @@ namespace HTMLBrowser
 {
     class Program
     {
+        static Stack<string> bracket = new Stack<string>(); // <> 짝 확인
+        static Stack<string> tagName = new Stack<string>(); // tag 짝 확인
+
+        static ArrayList lines = new ArrayList(); // error 발생 줄 > 가 많을 때
+        static ArrayList linesNo = new ArrayList(); // stack에 들어간 줄수 정방향으로 바꾸기용
+        static ArrayList errorTag = new ArrayList(); // 짝이 맞지 않는 태그 목록
+
+        static void TagChcek(string tags)
+        {
+            string closeTag = ""; //
+            string tempTagName;
+
+            string[] temp = tags.Split(' ');
+            //Console.WriteLine(temp[0]);
+            if (tags[0].ToString() == "/")
+            {
+                for (int i = 1; i < tags.Length; i++)
+                {
+                    if (tags[i].ToString() == " ")
+                        break;
+                    closeTag += tags[i];
+                }
+
+                tempTagName = tagName.Pop();
+                //Console.WriteLine(tempTagName);
+
+                if (closeTag != tempTagName)
+                {
+                    errorTag.Add(tempTagName);
+                }
+            }
+
+            else
+            {
+                Console.WriteLine(temp[0]);
+                tagName.Push(temp[0].Trim());
+            }
+
+
+        }
 
 
         static void Main(string[] args)
@@ -19,23 +59,15 @@ namespace HTMLBrowser
             var bracketError = 0;
             bool errorFlag = false;
             int errorFlagCount = 1;
+           
+            //중복 줄 1번만 출력
+            lines.Add(0);
+            linesNo.Add(0);
 
             //html 문서 읽어오기
             string[] test = File.ReadAllLines(@"D:\Project\html-Browser\SummerProject\HTMLBrowser\HTMLBrowser\a.html"); // html 문서 위치
             string txt = File.ReadAllText(@"D:\Project\html-Browser\SummerProject\HTMLBrowser\HTMLBrowser\a.html");
-
-
-            Stack<string> bracket = new Stack<string>(); // <> 짝 확인
-            Stack<string> tagName = new Stack<string>(); // tag 짝 확인
-
-            ArrayList lines = new ArrayList(); // error 발생 줄 > 가 많을 때
-            ArrayList linesNo = new ArrayList(); // stack에 들어간 줄수 정방향으로 바꾸기용
-            ArrayList errorTag = new ArrayList(); // 짝이 맞지 않는 태그 목록
-
-
-            //중복 줄 1번만 출력
-            lines.Add(0);
-            linesNo.Add(0);
+            
 
             //포맷 수정 html 코딩 스타일 때문에
             for (int i = 0; i < test.Length; i++)
@@ -43,10 +75,11 @@ namespace HTMLBrowser
                 test[i] = test[i].Replace("</ ", "</");
                 test[i] = test[i].Replace("< /", "</");
                 test[i] = test[i].Replace("< / ", "</");
+                test[i] = test[i].ToLower();
             }
 
 
-            //tag만 따오기 쉬게 하기 위헤서
+            //tag만 따오기 쉽게 하기 위헤서
             txt = txt.Replace(">", " >");
             txt = txt.ToLower();
 
@@ -54,10 +87,10 @@ namespace HTMLBrowser
             Regex regex = new Regex("<");
             string[] tag = regex.Split(txt);
 
-            //for(int i = 0; i<tag.Length;i++)
-            //{
-            //    Console.WriteLine("{0} {1}", i, tag[i]);
-            //}
+            for (int i = 0; i < tag.Length; i++)
+            {
+                Console.WriteLine("{0} {1}", i, tag[i]);
+            }
 
             //tag pattern
             //V
@@ -190,10 +223,6 @@ namespace HTMLBrowser
             string pA = @"a\s";
 
 
-
-            string closeTag = ""; //
-            string tempTagName;
-
             //태그를 스택에 넣고 pop된 태그와 /tag의 일치 비교
             foreach (string tags in tag)
             {
@@ -207,31 +236,7 @@ namespace HTMLBrowser
                     System.Text.RegularExpressions.Regex.IsMatch(tags, pAside) ||
                     System.Text.RegularExpressions.Regex.IsMatch(tags, pAudio))
                 {
-                    string[] temp = tags.Split(' ');
-                    //Console.WriteLine(temp[0]);
-                    if (tags[0].ToString() == "/")
-                    {
-                        Console.WriteLine("in");
-                        for (int i = 1; i < tags.Length; i++)
-                        {
-                            closeTag += tags[i];
-                            if (tags[i].ToString() == " ")
-                                break;
-                        }
-                        tempTagName = tagName.Pop();
-                        Console.WriteLine(tempTagName);
-                        if (closeTag != tempTagName)
-                        {
-                            errorTag.Add(tempTagName);
-                        }
-                    }
-
-                    else
-                    {
-                        Console.WriteLine(temp[0]);
-                        tagName.Push(temp[0]);
-                    }
-
+                    TagChcek(tags);
                 }
 
                 //B로 시작 태그
@@ -241,30 +246,7 @@ namespace HTMLBrowser
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pBlockquote) ||
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pBody))
                 {
-                    string[] temp = tags.Split(' ');
-                    //Console.WriteLine(temp[0]);
-                    if (tags[0].ToString() == "/")
-                    {
-                        Console.WriteLine("in");
-                        for (int i = 1; i < tags.Length; i++)
-                        {
-                            closeTag += tags[i];
-                            if (tags[i].ToString() == " ")
-                                break;
-                        }
-                        tempTagName = tagName.Pop();
-                        Console.WriteLine(tempTagName);
-                        if (closeTag != tempTagName)
-                        {
-                            errorTag.Add(tempTagName);
-                        }
-                    }
-
-                    else
-                    {
-                        Console.WriteLine(temp[0]);
-                        tagName.Push(temp[0]);
-                    }
+                    TagChcek(tags);
                 }
 
                 //C로 시작 태그
@@ -276,31 +258,8 @@ namespace HTMLBrowser
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pCol) ||
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pColgroup) ||
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pCommand))
-                {
-                    string[] temp = tags.Split(' ');
-                    //Console.WriteLine(temp[0]);
-                    if (tags[0].ToString() == "/")
-                    {
-                        Console.WriteLine("in");
-                        for (int i = 1; i < tags.Length; i++)
-                        {
-                            closeTag += tags[i];
-                            if (tags[i].ToString() == " ")
-                                break;
-                        }
-                        tempTagName = tagName.Pop();
-                        Console.WriteLine(tempTagName);
-                        if (closeTag != tempTagName)
-                        {
-                            errorTag.Add(tempTagName);
-                        }
-                    }
-
-                    else
-                    {
-                        Console.WriteLine(temp[0]);
-                        tagName.Push(temp[0]);
-                    }
+                { 
+                    TagChcek(tags);
                 }
 
                 //D로 시작 태그
@@ -315,30 +274,7 @@ namespace HTMLBrowser
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pDl) ||
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pDt))
                 {
-                    string[] temp = tags.Split(' ');
-                    //Console.WriteLine(temp[0]);
-                    if (tags[0].ToString() == "/")
-                    {
-                        Console.WriteLine("in");
-                        for (int i = 1; i < tags.Length; i++)
-                        {
-                            closeTag += tags[i];
-                            if (tags[i].ToString() == " ")
-                                break;
-                        }
-                        tempTagName = tagName.Pop();
-                        Console.WriteLine(tempTagName);
-                        if (closeTag != tempTagName)
-                        {
-                            errorTag.Add(tempTagName);
-                        }
-                    }
-
-                    else
-                    {
-                        Console.WriteLine(temp[0]);
-                        tagName.Push(temp[0]);
-                    }
+                    TagChcek(tags);
                 }
 
                 //E & K로 시작 태그
@@ -347,30 +283,7 @@ namespace HTMLBrowser
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pKbd))
 
                 {
-                    string[] temp = tags.Split(' ');
-                    //Console.WriteLine(temp[0]);
-                    if (tags[0].ToString() == "/")
-                    {
-                        Console.WriteLine("in");
-                        for (int i = 1; i < tags.Length; i++)
-                        {
-                            closeTag += tags[i];
-                            if (tags[i].ToString() == " ")
-                                break;
-                        }
-                        tempTagName = tagName.Pop();
-                        Console.WriteLine(tempTagName);
-                        if (closeTag != tempTagName)
-                        {
-                            errorTag.Add(tempTagName);
-                        }
-                    }
-
-                    else
-                    {
-                        Console.WriteLine(temp[0]);
-                        tagName.Push(temp[0]);
-                    }
+                    TagChcek(tags);
                 }
 
                 //F & L 로 시작 태그
@@ -386,30 +299,7 @@ namespace HTMLBrowser
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pLegend) ||
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pLi))
                 {
-                    string[] temp = tags.Split(' ');
-                    //Console.WriteLine(temp[0]);
-                    if (tags[0].ToString() == "/")
-                    {
-                        Console.WriteLine("in");
-                        for (int i = 1; i < tags.Length; i++)
-                        {
-                            closeTag += tags[i];
-                            if (tags[i].ToString() == " ")
-                                break;
-                        }
-                        tempTagName = tagName.Pop();
-                        Console.WriteLine(tempTagName);
-                        if (closeTag != tempTagName)
-                        {
-                            errorTag.Add(tempTagName);
-                        }
-                    }
-
-                    else
-                    {
-                        Console.WriteLine(temp[0]);
-                        tagName.Push(temp[0]);
-                    }
+                    TagChcek(tags);
                 }
 
                 //H로 시작 태그
@@ -423,31 +313,8 @@ namespace HTMLBrowser
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pH4) ||
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pH5) ||
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pH6))
-                {
-                    string[] temp = tags.Split(' ');
-                    //Console.WriteLine(temp[0]);
-                    if (tags[0].ToString() == "/")
-                    {
-                        Console.WriteLine("in");
-                        for (int i = 1; i < tags.Length; i++)
-                        {
-                            closeTag += tags[i];
-                            if (tags[i].ToString() == " ")
-                                break;
-                        }
-                        tempTagName = tagName.Pop();
-                        Console.WriteLine(tempTagName);
-                        if (closeTag != tempTagName)
-                        {
-                            errorTag.Add(tempTagName);
-                        }
-                    }
-
-                    else
-                    {
-                        Console.WriteLine(temp[0]);
-                        tagName.Push(temp[0]);
-                    }
+                { 
+                    TagChcek(tags);
                 }
 
                 //I & M 로 시작 태그
@@ -458,33 +325,10 @@ namespace HTMLBrowser
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pMap) ||
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pMark) ||
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pMenu) ||
-                         System.Text.RegularExpressions.Regex.IsMatch(tags, pMeta) ||
+                         //System.Text.RegularExpressions.Regex.IsMatch(tags, pMeta) ||
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pMeter))
                 {
-                    string[] temp = tags.Split(' ');
-                    //Console.WriteLine(temp[0]);
-                    if (tags[0].ToString() == "/")
-                    {
-                        Console.WriteLine("in");
-                        for (int i = 1; i < tags.Length; i++)
-                        {
-                            closeTag += tags[i];
-                            if (tags[i].ToString() == " ")
-                                break;
-                        }
-                        tempTagName = tagName.Pop();
-                        Console.WriteLine(tempTagName);
-                        if (closeTag != tempTagName)
-                        {
-                            errorTag.Add(tempTagName);
-                        }
-                    }
-
-                    else
-                    {
-                        Console.WriteLine(temp[0]);
-                        tagName.Push(temp[0]);
-                    }
+                    TagChcek(tags);
                 }
 
                 //N으로 시작 태그
@@ -492,30 +336,7 @@ namespace HTMLBrowser
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pNoframes) ||
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pNoscript))
                 {
-                    string[] temp = tags.Split(' ');
-                    //Console.WriteLine(temp[0]);
-                    if (tags[0].ToString() == "/")
-                    {
-                        Console.WriteLine("in");
-                        for (int i = 1; i < tags.Length; i++)
-                        {
-                            closeTag += tags[i];
-                            if (tags[i].ToString() == " ")
-                                break;
-                        }
-                        tempTagName = tagName.Pop();
-                        Console.WriteLine(tempTagName);
-                        if (closeTag != tempTagName)
-                        {
-                            errorTag.Add(tempTagName);
-                        }
-                    }
-
-                    else
-                    {
-                        Console.WriteLine(temp[0]);
-                        tagName.Push(temp[0]);
-                    }
+                    TagChcek(tags);
                 }
 
                 //O로 시작 태그
@@ -524,31 +345,8 @@ namespace HTMLBrowser
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pOptgroup) ||
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pOption) ||
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pOutput))
-                {
-                    string[] temp = tags.Split(' ');
-                    //Console.WriteLine(temp[0]);
-                    if (tags[0].ToString() == "/")
-                    {
-                        Console.WriteLine("in");
-                        for (int i = 1; i < tags.Length; i++)
-                        {
-                            closeTag += tags[i];
-                            if (tags[i].ToString() == " ")
-                                break;
-                        }
-                        tempTagName = tagName.Pop();
-                        Console.WriteLine(tempTagName);
-                        if (closeTag != tempTagName)
-                        {
-                            errorTag.Add(tempTagName);
-                        }
-                    }
-
-                    else
-                    {
-                        Console.WriteLine(temp[0]);
-                        tagName.Push(temp[0]);
-                    }
+                { 
+                    TagChcek(tags);
                 }
 
                 //P & Q로 시작 태그
@@ -558,30 +356,7 @@ namespace HTMLBrowser
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pPre) ||
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pProgress))
                 {
-                    string[] temp = tags.Split(' ');
-                    //Console.WriteLine(temp[0]);
-                    if (tags[0].ToString() == "/")
-                    {
-                        Console.WriteLine("in");
-                        for (int i = 1; i < tags.Length; i++)
-                        {
-                            closeTag += tags[i];
-                            if (tags[i].ToString() == " ")
-                                break;
-                        }
-                        tempTagName = tagName.Pop();
-                        Console.WriteLine(tempTagName);
-                        if (closeTag != tempTagName)
-                        {
-                            errorTag.Add(tempTagName);
-                        }
-                    }
-
-                    else
-                    {
-                        Console.WriteLine(temp[0]);
-                        tagName.Push(temp[0]);
-                    }
+                    TagChcek(tags);
                 }
 
                 //R & U & V 로 시작 태그
@@ -593,30 +368,7 @@ namespace HTMLBrowser
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pVar) ||
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pVideo))
                 {
-                    string[] temp = tags.Split(' ');
-                    //Console.WriteLine(temp[0]);
-                    if (tags[0].ToString() == "/")
-                    {
-                        Console.WriteLine("in");
-                        for (int i = 1; i < tags.Length; i++)
-                        {
-                            closeTag += tags[i];
-                            if (tags[i].ToString() == " ")
-                                break;
-                        }
-                        tempTagName = tagName.Pop();
-                        Console.WriteLine(tempTagName);
-                        if (closeTag != tempTagName)
-                        {
-                            errorTag.Add(tempTagName);
-                        }
-                    }
-
-                    else
-                    {
-                        Console.WriteLine(temp[0]);
-                        tagName.Push(temp[0]);
-                    }
+                    TagChcek(tags);
                 }
 
                 //S로 시작 태그
@@ -635,30 +387,7 @@ namespace HTMLBrowser
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pSub) ||
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pSup))
                 {
-                    string[] temp = tags.Split(' ');
-                    //Console.WriteLine(temp[0]);
-                    if (tags[0].ToString() == "/")
-                    {
-                        Console.WriteLine("in");
-                        for (int i = 1; i < tags.Length; i++)
-                        {
-                            closeTag += tags[i];
-                            if (tags[i].ToString() == " ")
-                                break;
-                        }
-                        tempTagName = tagName.Pop();
-                        Console.WriteLine(tempTagName);
-                        if (closeTag != tempTagName)
-                        {
-                            errorTag.Add(tempTagName);
-                        }
-                    }
-
-                    else
-                    {
-                        Console.WriteLine(temp[0]);
-                        tagName.Push(temp[0]);
-                    }
+                    TagChcek(tags);
                 }
 
                 //T로 시작 태그
@@ -674,32 +403,14 @@ namespace HTMLBrowser
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pTr) ||
                          System.Text.RegularExpressions.Regex.IsMatch(tags, pTt))
                 {
-                    string[] temp = tags.Split(' ');
-                    //Console.WriteLine(temp[0]);
-                    if (tags[0].ToString() == "/")
-                    {
-                        Console.WriteLine("in");
-                        for (int i = 1; i < tags.Length; i++)
-                        {
-                            closeTag += tags[i];
-                            if (tags[i].ToString() == " ")
-                                break;
-                        }
-                        tempTagName = tagName.Pop();
-                        Console.WriteLine(tempTagName);
-                        if (closeTag != tempTagName)
-                        {
-                            errorTag.Add(tempTagName);
-                        }
-                    }
-
-                    else
-                    {
-                        Console.WriteLine(temp[0]);
-                        tagName.Push(temp[0]);
-                    }
+                    TagChcek(tags);
                 }
 
+
+                else if (System.Text.RegularExpressions.Regex.IsMatch(tags, pMeta))
+                {
+                    Console.WriteLine("meta is checked");
+                }
             }
 
 
@@ -801,7 +512,7 @@ namespace HTMLBrowser
                     Console.WriteLine("{0} {1}", i + 1, tagName.Pop());
             }
 
-            Console.WriteLine(errorTag.Count);
+            Console.WriteLine("errorTag Count {0}",errorTag.Count);
             /*
             for (int i = 0; i < tag.Length; i++)
                 Console.WriteLine(tag[i]);
@@ -809,6 +520,6 @@ namespace HTMLBrowser
             Console.WriteLine(); Console.WriteLine();
             Console.WriteLine(txt);
             */
-        }
+        }   
     }
 }
