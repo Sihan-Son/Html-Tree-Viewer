@@ -24,18 +24,18 @@ namespace HTMLBrowser
             string tempTagName;
 
             string[] temp = tags.Split(' ');
-            //Console.WriteLine(temp[0]);
-            if (tags[0].ToString() == "/")
+            Console.WriteLine("{0} is  tmep",temp[0]);
+            if (temp[0].ToString() == "/")
             {
                 for (int i = 1; i < tags.Length; i++)
                 {
-                    if (tags[i].ToString() == " ")
+                    if (temp[i].ToString() == " ")
                         break;
                     closeTag += tags[i];
                 }
 
                 tempTagName = tagName.Pop();
-                //Console.WriteLine(tempTagName);
+                Console.WriteLine("{0} pop tag name",tempTagName);
 
                 if (closeTag != tempTagName)
                 {
@@ -87,140 +87,140 @@ namespace HTMLBrowser
             Regex regex = new Regex("<");
             string[] tag = regex.Split(txt);
 
-            for (int i = 0; i < tag.Length; i++)
-            {
-                Console.WriteLine("{0} {1}", i, tag[i]);
-            }
+            //for (int i = 0; i < tag.Length; i++)
+            //{
+            //    Console.WriteLine("{0} {1}", i, tag[i]);
+            //}
 
             //tag pattern
             //V
-            string pVideo = @"video\s";
-            string pVar = @"var\s";
+            string pVideo = @"^video\s";
+            string pVar = @"^var\s";
             //U
-            string pUl = @"ul\s";
-            string pU = @"u\s";
+            string pUl = @"^ul\s";
+            string pU = @"^u\s";
             //T
-            string pTt = @"tt\s";
-            string pTr = @"tr\s";
-            string pTitle = @"title\s";
-            string pTime = @"time\s";
-            string pThead = @"thead\s";
-            string pTh = @"th\s";
-            string pTfoot = @"tfoot\s";
-            string pTextarea = @"textarea\s";
-            string pTd = @"td\s";
-            string pTbody = @"tbody\s";
-            string pTable = @"table\s";
+            string pTt = @"^tt\s";
+            string pTr = @"^tr\s";
+            string pTitle = @"^title\s";
+            string pTime = @"^time\s";
+            string pThead = @"^thead\s";
+            string pTh = @"^th\s";
+            string pTfoot = @"^tfoot\s";
+            string pTextarea = @"^textarea\s";
+            string pTd = @"^td\s";
+            string pTbody = @"^tbody\s";
+            string pTable = @"^table\s";
             //S
-            string pSup = @"sup\s";
-            string pSummary = @"summary\s";
-            string pSub = @"sub\s";
-            string pStyle = @"style\s";
-            string pStrong = @"strong\s";
-            string pStrike = @"strike\s";
-            string pSpan = @"span\s";
-            string pSmall = @"small\s";
-            string pSelect = @"select\s";
-            string pSection = @"section\s";
-            string pScript = @"script\s";
-            string pSamp = @"samp\s";
-            string pS = @"s\s";
+            string pSup = @"^sup\s";
+            string pSummary = @"^summary\s";
+            string pSub = @"^sub\s";
+            string pStyle = @"^style\s";
+            string pStrong = @"^strong\s";
+            string pStrike = @"^strike\s";
+            string pSpan = @"^span\s";
+            string pSmall = @"^small\s";
+            string pSelect = @"^select\s";
+            string pSection = @"^section\s";
+            string pScript = @"^script\s";
+            string pSamp = @"^samp\s";
+            string pS = @"^s\s";
             //R
-            string pRuby = @"ruby\s";
-            string pRt = @"rt\s";
-            string pRp = @"rp\s";
+            string pRuby = @"^ruby\s";
+            string pRt = @"^rt\s";
+            string pRp = @"^rp\s";
             //Q
-            string pQ = @"q\s";
+            string pQ = @"^q\s";
             //P
-            string pProgress = @"progress\s";
-            string pPre = @"pre\s";
-            string pParam = @"param\s";
-            string pP = @"p\s";
+            string pProgress = @"^progress\s";
+            string pPre = @"^pre\s";
+            string pParam = @"^param\s";
+            string pP = @"^p\s";
             //O
-            string pOutput = @"output\s";
-            string pOption = @"option\s";
-            string pOptgroup = @"optgroup\s";
-            string pOl = @"ol\s";
-            string pObject = @"object\s";
+            string pOutput = @"^output\s";
+            string pOption = @"^option\s";
+            string pOptgroup = @"^optgroup\s";
+            string pOl = @"^ol\s";
+            string pObject = @"^object\s";
             //N
-            string pNoscript = @"noscript\s";
-            string pNoframes = @"noframes\s";
-            string pNay = @"nay\s";
+            string pNoscript = @"^noscript\s";
+            string pNoframes = @"^noframes\s";
+            string pNay = @"^nay\s";
             //M
-            string pMeter = @"meter\s";
-            string pMeta = @"meta\s";
-            string pMenu = @"menu\s";
-            string pMark = @"mark\s";
-            string pMap = @"map\s";
+            string pMeter = @"^meter\s";
+            string pMeta = @"^meta\s";
+            string pMenu = @"^menu\s";
+            string pMark = @"^mark\s";
+            string pMap = @"^map\s";
             //L
-            string pLi = @"li\s";
-            string pLegend = @"legend\s";
-            string pLabel = @"label\s";
+            string pLi = @"^li\s";
+            string pLegend = @"^legend\s";
+            string pLabel = @"^label\s";
             //K
-            string pKbd = @"kbd\s";
+            string pKbd = @"^kbd\s";
             //I
-            string pIns = @"ins\s";
-            string pInput = @"input\s";
-            string pIframe = @"iframe\s";
-            string pI = @"i\s";
+            string pIns = @"^ins\s";
+            string pInput = @"^input\s";
+            string pIframe = @"^iframe\s";
+            string pI = @"^i\s";
             //H
-            string pHtml = @"html\s";
-            string pHgroup = @"hgroup\s";
-            string pHeader = @"header\s";
-            string pHead = @"head\s";
-            string pH1 = @"h1\s";
-            string pH2 = @"h2\s";
-            string pH3 = @"h3\s";
-            string pH4 = @"h4\s";
-            string pH5 = @"h5\s";
-            string pH6 = @"h6\s";
+            string pHtml = @"^html\s";
+            string pHgroup = @"^hgroup\s";
+            string pHeader = @"^header\s";
+            string pHead = @"^head\s";
+            string pH1 = @"^h1\s";
+            string pH2 = @"^h2\s";
+            string pH3 = @"^h3\s";
+            string pH4 = @"^h4\s";
+            string pH5 = @"^h5\s";
+            string pH6 = @"^h6\s";
             //F
-            string pFrameset = @"frameset\s";
-            string pFrame = @"frame\s";
-            string pForm = @"form\s";
-            string pFooter = @"footer\s";
-            string pFont = @"font\s";
-            string pFigure = @"figure\s";
-            string pFigcaption = @"figcaption\s";
-            string pFieldset = @"fieldset\s";
+            string pFrameset = @"^frameset\s";
+            string pFrame = @"^frame\s";
+            string pForm = @"^form\s";
+            string pFooter = @"^footer\s";
+            string pFont = @"^font\s";
+            string pFigure = @"^figure\s";
+            string pFigcaption = @"^figcaption\s";
+            string pFieldset = @"^fieldset\s";
             //E
-            string pEmbed = @"embed\s";
-            string pEm = @"em\s";
+            string pEmbed = @"^embed\s";
+            string pEm = @"^em\s";
             //D
-            string pDt = @"dt\s";
-            string pDl = @"dl\s";
-            string pDiv = @"div\s";
-            string pDir = @"dir\s";
-            string pDialog = @"dialog\s";
-            string pDfn = @"dfn\s";
-            string pDetalis = @"detalis\s";
-            string pDel = @"del\s";
-            string pDd = @"dd\s";
-            string pDetalist = @"detalist\s";
+            string pDt = @"^dt\s";
+            string pDl = @"^dl\s";
+            string pDiv = @"^div\s";
+            string pDir = @"^dir\s";
+            string pDialog = @"^dialog\s";
+            string pDfn = @"^dfn\s";
+            string pDetalis = @"^detalis\s";
+            string pDel = @"^del\s";
+            string pDd = @"^dd\s";
+            string pDetalist = @"^detalist\s";
             //C
-            string pCommand = @"command\s";
-            string pColgroup = @"colgroup\s";
-            string pCol = @"col\s";
-            string pCode = @"code\s";
-            string pCite = @"cite\s";
-            string pCenter = @"center\s";
-            string pCaption = @"caption\s";
-            string pCanvas = @"canvas\s";
+            string pCommand = @"^command\s";
+            string pColgroup = @"^colgroup\s";
+            string pCol = @"^col\s";
+            string pCode = @"^code\s";
+            string pCite = @"^cite\s";
+            string pCenter = @"^center\s";
+            string pCaption = @"^caption\s";
+            string pCanvas = @"^canvas\s";
             //B
-            string pBody = @"body\s";
-            string pBlockquote = @"blockquote\s";
-            string pBig = @"big\s";
-            string pBdo = @"bdo\s";
-            string pBdi = @"bdi\s";
+            string pBody = @"^body\s";
+            string pBlockquote = @"^blockquote\s";
+            string pBig = @"^big\s";
+            string pBdo = @"^bdo\s";
+            string pBdi = @"^bdi\s";
             //A
-            string pAudio = @"audio\s";
-            string pAside = @"aside\s";
-            string pArticle = @"article\s";
-            string pApplet = @"applet\s";
-            string pAddress = @"address\s";
-            string pAcronym = @"acronym\s";
-            string pAbbr = @"abbr\s";
-            string pA = @"a\s";
+            string pAudio = @"^audio\s";
+            string pAside = @"^aside\s";
+            string pArticle = @"^article\s";
+            string pApplet = @"^applet\s";
+            string pAddress = @"^address\s";
+            string pAcronym = @"^acronym\s";
+            string pAbbr = @"^abbr\s";
+            string pA = @"^a\s";
 
 
             //태그를 스택에 넣고 pop된 태그와 /tag의 일치 비교
@@ -409,7 +409,7 @@ namespace HTMLBrowser
 
                 else if (System.Text.RegularExpressions.Regex.IsMatch(tags, pMeta))
                 {
-                    Console.WriteLine("meta is checked");
+                    Console.WriteLine();
                 }
             }
 
@@ -498,7 +498,7 @@ namespace HTMLBrowser
 
             if (errorTag.Count != 0)
             {
-                Console.WriteLine("짝이 맞지 않는 태그가 발생");
+                Console.WriteLine("a짝이 맞지 않는 태그가 발생");
 
                 for (int i = 0; i < errorTag.Count; i++)
                     Console.WriteLine("{0} {1}", i + 1, errorTag[i]);
@@ -506,7 +506,7 @@ namespace HTMLBrowser
 
             if (tagName.Count != 0)
             {
-                Console.WriteLine("짝이 맞지 않는 태그가 발생");
+                Console.WriteLine("b짝이 맞지 않는 태그가 발생");
 
                 for (int i = 0; i < tagName.Count; i++)
                     Console.WriteLine("{0} {1}", i + 1, tagName.Pop());
