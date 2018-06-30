@@ -16,3 +16,13 @@ D:\Project\html-Browser\SummerProject\HTMLBrowser\HTMLBrowser\bin\Debug\HtmlAgil
 D:\Project\html-Browser\SummerProject\HTMLBrowser\HTMLBrowser\bin\Debug\HtmlAgilityPack.pdb
 D:\Project\html-Browser\SummerProject\HTMLBrowser\HTMLBrowser\bin\Debug\HtmlAgilityPack.xml
 D:\Project\html-Browser\SummerProject\HTMLBrowser\HTMLBrowser\obj\Debug\HTMLBrowser.csproj.CopyComplete
+E:\Project\html-Browser\SummerProject\HTMLBrowser\HTMLBrowser\bin\Debug\HTMLBrowser.exe.config
+E:\Project\html-Browser\SummerProject\HTMLBrowser\HTMLBrowser\bin\Debug\HTMLBrowser.exe
+E:\Project\html-Browser\SummerProject\HTMLBrowser\HTMLBrowser\bin\Debug\HTMLBrowser.pdb
+E:\Project\html-Browser\SummerProject\HTMLBrowser\HTMLBrowser\bin\Debug\HtmlAgilityPack.dll
+E:\Project\html-Browser\SummerProject\HTMLBrowser\HTMLBrowser\bin\Debug\HtmlAgilityPack.pdb
+E:\Project\html-Browser\SummerProject\HTMLBrowser\HTMLBrowser\bin\Debug\HtmlAgilityPack.xml
+E:\Project\html-Browser\SummerProject\HTMLBrowser\HTMLBrowser\obj\Debug\HTMLBrowser.csprojResolveAssemblyReference.cache
+E:\Project\html-Browser\SummerProject\HTMLBrowser\HTMLBrowser\obj\Debug\HTMLBrowser.csproj.CoreCompileInputs.cache
+E:\Project\html-Browser\SummerProject\HTMLBrowser\HTMLBrowser\obj\Debug\HTMLBrowser.exe
+E:\Project\html-Browser\SummerProject\HTMLBrowser\HTMLBrowser\obj\Debug\HTMLBrowser.pdb

@@ -15,7 +15,6 @@ namespace HTMLBrowser
         static Stack<string> tagName = new Stack<string>(); // tag 짝 확인
 
         static ArrayList lines = new ArrayList(); // error 발생 줄 > 가 많을 때
-        static ArrayList linesNo = new ArrayList(); // stack에 들어간 줄수 정방향으로 바꾸기용
         static ArrayList errorTag = new ArrayList(); // 짝이 맞지 않는 태그 목록
 
         static void TagChcek(string tags)
@@ -57,17 +56,23 @@ namespace HTMLBrowser
         {
             //에러 개수 count
             var bracketError = 0;
-            bool errorFlag = false;
-            int errorFlagCount = 1;
+            int temp = 0;
+
            
+
             //중복 줄 1번만 출력
             lines.Add(0);
-            linesNo.Add(0);
 
             //html 문서 읽어오기
-            string[] test = File.ReadAllLines(@"D:\Project\html-Browser\SummerProject\HTMLBrowser\HTMLBrowser\a.html"); // html 문서 위치
-            string txt = File.ReadAllText(@"D:\Project\html-Browser\SummerProject\HTMLBrowser\HTMLBrowser\a.html");
-            
+            string[] test = File.ReadAllLines(@"E:\Project\html-Browser\SummerProject\HTMLBrowser\HTMLBrowser\a.html"); // html 문서 위치
+            string txt = File.ReadAllText(@"E:\Project\html-Browser\SummerProject\HTMLBrowser\HTMLBrowser\a.html");
+
+            //<> 개수 오류 체크 
+            //배열 행과 에러가 발생한 html의 줄수 일치 
+            int[,] linesNo = new int[test.Length,2]; 
+
+            //ArrayList linesNo = new ArrayList(); // stack에 들어간 줄수 정방향으로 바꾸기용
+            //linesNo.Add(0);
 
             //포맷 수정 html 코딩 스타일 때문에
             for (int i = 0; i < test.Length; i++)
@@ -425,30 +430,12 @@ namespace HTMLBrowser
                     {
                         bracket.Push(test[i][j].ToString());
 
-                        /*
+                        
                         if (bracket.Count >= 2)
                         {
-                            errorFlagCount = bracket.Count;
-
-                            if (errorFlagCount <= bracket.Count)
-                            {
-                                errorFlag = false;
-                                Console.WriteLine(i + " false");
-
-                            }
-
-                            else
-                            {
-                                errorFlag = true;
-                                Console.WriteLine("true");
-                            }
+                            linesNo[i,0]++;
                         }
-                        */
-                        if (errorFlag)
-                        {
-                            linesNo.Add(i);
-                            Console.WriteLine(bracket.Count);
-                        }
+                        
                     }
 
                     if (test[i][j].ToString() == ">")
@@ -473,12 +460,16 @@ namespace HTMLBrowser
             {
                 Console.WriteLine("닫히지 않은 괄호가 " + bracket.Count() + "개 존재합니다");
 
-                for (int i = 1; i < linesNo.Count; i++)
-                {
-                    if (Convert.ToInt32(linesNo[i]) == Convert.ToInt32(linesNo[i - 1]))
-                        continue;
-                    Console.WriteLine((Convert.ToInt32(linesNo[i]) + 1) + "번째 라인에서 문제 발생");
-                }
+                //for (int i = 1; i < linesNo.Length; i++)
+                //{
+                //    //if (linesNo[i] == 0)
+                //    //    continue;
+                //    //if (Convert.ToInt32(linesNo[i]) == Convert.ToInt32(linesNo[i - 1]))
+                //    //    continue;
+                //    //Console.WriteLine(i+1 + "번째 라인에서"+ linesNo[i]+ "개 <가 더 열렸습니다.");
+                    
+                //}
+                
             }
 
 
