@@ -81,7 +81,6 @@
             // 
             // htmlViewer
             // 
-            this.htmlViewer.Enabled = false;
             this.htmlViewer.Location = new System.Drawing.Point(246, 67);
             this.htmlViewer.Name = "htmlViewer";
             this.htmlViewer.Size = new System.Drawing.Size(352, 370);
@@ -281,7 +280,6 @@
             // 
             // filePath
             // 
-            this.filePath.Enabled = false;
             this.filePath.Location = new System.Drawing.Point(12, 415);
             this.filePath.Name = "filePath";
             this.filePath.Size = new System.Drawing.Size(228, 21);

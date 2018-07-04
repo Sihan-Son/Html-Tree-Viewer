@@ -49,12 +49,13 @@ namespace WindowsFormsApp3
                 opd.Filter = "HTML File *.html|*.html";
                 string htmlContent = "";
                 string htmlCodeView = "";
-
+                errorView.Text = "";
                 try
                 {
                     renderFlag = false;
                     if (opd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
+
                         if (treeView1.Nodes.Count > 0)
                         {
                             treeView1.Nodes.RemoveAt(0);
@@ -101,6 +102,7 @@ namespace WindowsFormsApp3
                         //MessageBox.Show("meta", "오류 발생");
 
                         document.LoadXml(htmlContent);//opd.FileName);
+                        renderFlag = true;
 
                         // Upload root element and his childs in treeList
                         XmlNode xn = document.DocumentElement;
@@ -117,7 +119,6 @@ namespace WindowsFormsApp3
                         }
                         counter++;
 
-                        renderFlag = true;
                         htmlViewer.Text = htmlCodeView;
 
                     }
@@ -125,6 +126,8 @@ namespace WindowsFormsApp3
                     {
                         render.Enabled = true;
                     }
+                    if (!renderFlag)
+                        render.Enabled = false;
                 }
                 catch (Exception ex)
                 {
@@ -132,6 +135,8 @@ namespace WindowsFormsApp3
                     //tbName.Text = htmlContent;
 
                     MessageBox.Show(ex.Message, "파일을 여는 중 오류가 발생했습니다");
+                    render.Enabled = false;
+                    htmlViewer.Text = "";
                 }
             }
 
