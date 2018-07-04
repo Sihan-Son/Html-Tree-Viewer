@@ -1,0 +1,11 @@
+D:\Project\html-Browser\html\WindowsFormsApp3\bin\Debug\htmlViewe r.exe.config
+D:\Project\html-Browser\html\WindowsFormsApp3\bin\Debug\htmlViewe r.exe
+D:\Project\html-Browser\html\WindowsFormsApp3\bin\Debug\htmlViewe r.pdb
+D:\Project\html-Browser\html\WindowsFormsApp3\obj\Debug\WindowsFormsApp3.Form1.resources
+D:\Project\html-Browser\html\WindowsFormsApp3\obj\Debug\WindowsFormsApp3.Form2.resources
+D:\Project\html-Browser\html\WindowsFormsApp3\obj\Debug\htmlViewer.Properties.Resources.resources
+D:\Project\html-Browser\html\WindowsFormsApp3\obj\Debug\htmlViewer.csproj.GenerateResource.cache
+D:\Project\html-Browser\html\WindowsFormsApp3\obj\Debug\htmlViewer.csproj.CoreCompileInputs.cache
+D:\Project\html-Browser\html\WindowsFormsApp3\obj\Debug\htmlViewe r.exe
+D:\Project\html-Browser\html\WindowsFormsApp3\obj\Debug\htmlViewe r.pdb
+D:\Project\html-Browser\html\WindowsFormsApp3\obj\Debug\htmlViewer.csprojAssemblyReference.cache
