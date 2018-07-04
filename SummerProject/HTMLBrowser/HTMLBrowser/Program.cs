@@ -88,7 +88,7 @@ namespace HTMLBrowser
             txt = txt.Replace(">", " >");
             txt = txt.ToLower();
 
-            //<로 시작하는 문장들은 모두 태그라 태그 비교를 위해
+            //<로 시작하는 문장들은  모두 태그라 태그 비교를 위해
             Regex regex = new Regex("<");
             string[] tag = regex.Split(txt);
 
