@@ -45,10 +45,12 @@ namespace WindowsFormsApp3
         {
 
             {
-                
+                // file open dialog로 열 파일 포멧 종류
                 opd.Filter = "HTML File *.html|*.html";
-                string htmlContent = "";
-                string htmlCodeView = "";
+                
+                
+                string htmlContent = ""; // 트리노드 구성에 사용할 html코드
+                string htmlCodeView = ""; // html view에 띄울 html
                 errorView.Text = "";
                 try
                 {
@@ -61,15 +63,19 @@ namespace WindowsFormsApp3
                             treeView1.Nodes.RemoveAt(0);
                             tbName.Text = string.Empty;
                         }
+
                         filePath.Text = opd.FileName;
 
                         string[] editText = File.ReadAllLines(opd.FileName);
 
+                        //html에 보여줄 raw code
                         for (int i = 0; i < editText.Length; i++)
                         {
                             htmlCodeView += editText[i] + "\n";
                         }
 
+
+                        //empty tag 제거
                             for (int i = 0; i < editText.Length; i++)
                         {
                             if (System.Text.RegularExpressions.Regex.IsMatch(editText[i], pArea) ||
@@ -91,6 +97,8 @@ namespace WindowsFormsApp3
                                 editText[i] = null;
                             }
                         }
+
+                        //트리노드 구성에 사용할 html 코드
                         for (int i = 0; i < editText.Length; i++)
                         {
                             if (editText[i] == null)
@@ -98,23 +106,24 @@ namespace WindowsFormsApp3
                             htmlContent += editText[i] + "\n";
                         }
 
-                        //toolStripStatusLabelPath.Text = "경로: " + opd.FileName;
-                        //MessageBox.Show("meta", "오류 발생");
+                        //xml파일을 불러옴
+                        document.LoadXml(htmlContent);
 
-                        document.LoadXml(htmlContent);//opd.FileName);
+                        //정상적으로 html파일을 읽어올 경우에만 렌더링
                         renderFlag = true;
 
                         // Upload root element and his childs in treeList
                         XmlNode xn = document.DocumentElement;
 
                         int counter = 0;
+
                         TreeNode node = new TreeNode(xn.LocalName);
                         treeView1.Nodes.Add(node);
 
                         XmlNodeList childs = xn.ChildNodes;
-                        foreach (XmlNode child in childs)
-                        {
 
+                        foreach (XmlNode child in childs)
+                        { 
                             treeView1.Nodes[counter].Nodes.Add(new TreeNode(child.LocalName));
                         }
                         counter++;
@@ -123,11 +132,9 @@ namespace WindowsFormsApp3
 
                     }
                     if (renderFlag)
-                    {
                         render.Enabled = true;
-                    }
-                    if (!renderFlag)
-                        render.Enabled = false;
+                    
+                   
                 }
                 catch (Exception ex)
                 {
@@ -137,6 +144,8 @@ namespace WindowsFormsApp3
                     MessageBox.Show(ex.Message, "파일을 여는 중 오류가 발생했습니다");
                     render.Enabled = false;
                     htmlViewer.Text = "";
+                    filePath.Clear();
+                    tbPath.Clear();
                 }
             }
 
@@ -169,8 +178,7 @@ namespace WindowsFormsApp3
 
         private void treeView1_AfterExpand(object sender, TreeViewEventArgs e)
         {
-            TreeNodeMouseClickEventArgs ev = new TreeNodeMouseClickEventArgs(e.Node,
-               new System.Windows.Forms.MouseButtons(), 0, 0, 0);
+            TreeNodeMouseClickEventArgs ev = new TreeNodeMouseClickEventArgs(e.Node, new System.Windows.Forms.MouseButtons(), 0, 0, 0);
             ((TreeView)sender).SelectedNode = e.Node;
             treeView1_NodeMouseDoubleClick(sender, ev);
         }
@@ -205,7 +213,9 @@ namespace WindowsFormsApp3
 
             int c = indxs.Count > 2 ? 2 : indxs.Count;
             XmlNode xnode = document.DocumentElement.ChildNodes[indxs[indxs.Count - c]];
+
             int indElemType = 0;
+
             while (indxs.Count - 1 - c >= 0)
             {
                 xnode = xnode.ChildNodes[0];
@@ -227,8 +237,7 @@ namespace WindowsFormsApp3
 
         private void treeView1_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            if (treeView1.SelectedNode.Nodes.Count != 0
-               && treeView1.SelectedNode.Nodes[0].Nodes.Count == 0)
+            if (treeView1.SelectedNode.Nodes.Count != 0 && treeView1.SelectedNode.Nodes[0].Nodes.Count == 0)
             {
                 try
                 {
@@ -281,6 +290,7 @@ namespace WindowsFormsApp3
             try
             {
                 XmlNode xnode = getElemInDoc(sender, new TreeViewEventArgs(treeView1.SelectedNode));
+                attView.Text = "속성:";
                 attView.Text += string.Format("\r\n 내용: {0}", xnode.InnerText);
             }
             catch

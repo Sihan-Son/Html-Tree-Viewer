@@ -83,6 +83,7 @@
             // 
             this.htmlViewer.Location = new System.Drawing.Point(246, 67);
             this.htmlViewer.Name = "htmlViewer";
+            this.htmlViewer.ReadOnly = true;
             this.htmlViewer.Size = new System.Drawing.Size(352, 370);
             this.htmlViewer.TabIndex = 3;
             this.htmlViewer.Text = "";
@@ -111,9 +112,9 @@
             // 
             // tbPath
             // 
-            this.tbPath.Enabled = false;
             this.tbPath.Location = new System.Drawing.Point(9, 85);
             this.tbPath.Name = "tbPath";
+            this.tbPath.ReadOnly = true;
             this.tbPath.Size = new System.Drawing.Size(223, 21);
             this.tbPath.TabIndex = 3;
             // 
@@ -128,9 +129,9 @@
             // 
             // tbName
             // 
-            this.tbName.Enabled = false;
             this.tbName.Location = new System.Drawing.Point(9, 37);
             this.tbName.Name = "tbName";
+            this.tbName.ReadOnly = true;
             this.tbName.Size = new System.Drawing.Size(223, 21);
             this.tbName.TabIndex = 1;
             // 
@@ -145,18 +146,19 @@
             // 
             // attView
             // 
-            this.attView.Enabled = false;
             this.attView.Location = new System.Drawing.Point(605, 206);
             this.attView.Name = "attView";
+            this.attView.ReadOnly = true;
+            this.attView.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.attView.Size = new System.Drawing.Size(230, 90);
             this.attView.TabIndex = 6;
             this.attView.Text = "";
             // 
             // errorView
             // 
-            this.errorView.Enabled = false;
             this.errorView.Location = new System.Drawing.Point(605, 341);
             this.errorView.Name = "errorView";
+            this.errorView.ReadOnly = true;
             this.errorView.Size = new System.Drawing.Size(230, 96);
             this.errorView.TabIndex = 7;
             this.errorView.Text = "";
@@ -282,6 +284,8 @@
             // 
             this.filePath.Location = new System.Drawing.Point(12, 415);
             this.filePath.Name = "filePath";
+            this.filePath.ReadOnly = true;
+            this.filePath.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.filePath.Size = new System.Drawing.Size(228, 21);
             this.filePath.TabIndex = 11;
             // 
@@ -312,7 +316,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.treeView1);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "HTML ANALYZER";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
