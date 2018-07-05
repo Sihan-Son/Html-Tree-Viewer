@@ -74,9 +74,8 @@ namespace WindowsFormsApp3
                             htmlCodeView += editText[i] + "\n";
                         }
 
-
                         //empty tag 제거
-                            for (int i = 0; i < editText.Length; i++)
+                        for (int i = 0; i < editText.Length; i++)
                         {
                             if (System.Text.RegularExpressions.Regex.IsMatch(editText[i], pArea) ||
                                 System.Text.RegularExpressions.Regex.IsMatch(editText[i], pBase) ||
@@ -178,7 +177,7 @@ namespace WindowsFormsApp3
 
         private void treeView1_AfterExpand(object sender, TreeViewEventArgs e)
         {
-            TreeNodeMouseClickEventArgs ev = new TreeNodeMouseClickEventArgs(e.Node, new System.Windows.Forms.MouseButtons(), 0, 0, 0);
+            TreeNodeMouseClickEventArgs ev = new TreeNodeMouseClickEventArgs(e.Node, new MouseButtons(), 0, 0, 0);
             ((TreeView)sender).SelectedNode = e.Node;
             treeView1_NodeMouseDoubleClick(sender, ev);
         }
