@@ -9,3 +9,13 @@ D:\Project\html-Viewer\html\WindowsFormsApp3\obj\Release\htmlViewer.csproj.Gener
 D:\Project\html-Viewer\html\WindowsFormsApp3\obj\Release\htmlViewer.csproj.CoreCompileInputs.cache
 D:\Project\html-Viewer\html\WindowsFormsApp3\obj\Release\htmlViewe r.exe
 D:\Project\html-Viewer\html\WindowsFormsApp3\obj\Release\htmlViewe r.pdb
+D:\Project\Html-Tree-Viewer\html\WindowsFormsApp3\bin\Release\htmlViewe r.exe.config
+D:\Project\Html-Tree-Viewer\html\WindowsFormsApp3\bin\Release\htmlViewe r.exe
+D:\Project\Html-Tree-Viewer\html\WindowsFormsApp3\bin\Release\htmlViewe r.pdb
+D:\Project\Html-Tree-Viewer\html\WindowsFormsApp3\obj\Release\htmlViewer.csprojAssemblyReference.cache
+D:\Project\Html-Tree-Viewer\html\WindowsFormsApp3\obj\Release\WindowsFormsApp3.Form1.resources
+D:\Project\Html-Tree-Viewer\html\WindowsFormsApp3\obj\Release\WindowsFormsApp3.Form2.resources
+D:\Project\Html-Tree-Viewer\html\WindowsFormsApp3\obj\Release\htmlViewer.Properties.Resources.resources
+D:\Project\Html-Tree-Viewer\html\WindowsFormsApp3\obj\Release\htmlViewer.csproj.GenerateResource.cache
+D:\Project\Html-Tree-Viewer\html\WindowsFormsApp3\obj\Release\htmlViewe r.exe
+D:\Project\Html-Tree-Viewer\html\WindowsFormsApp3\obj\Release\htmlViewe r.pdb
